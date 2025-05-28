@@ -1,0 +1,53 @@
+# build.yml
+project: "fleare-cli"
+version: "1.0.0"
+
+build:
+  # Default build settings
+  default:
+    os: "darwin"
+    arch: "arm64"
+    output: "./bin/{{.project}}-{{.version}}-darwin-arm64"
+    ldflags: "-X main.version={{.version}}"
+    tags: []
+    cgo: false
+
+  # Custom build targets
+  targets:
+    linux-amd64:
+      os: "linux"
+      arch: "amd64"
+      output: "./bin/{{.project}}-linux-amd64"
+    
+    windows-amd64:
+      os: "windows"
+      arch: "amd64"
+      output: "./bin/{{.project}}-windows-amd64.exe"
+    
+    darwin-arm64:
+      os: "darwin"
+      arch: "arm64"
+      output: "./bin/{{.project}}-darwin-arm64"
+
+dependencies:
+  check:
+    - "golang.org/x/tools/cmd/stringer"
+    - "github.com/golang/mock/mockgen"
+
+tasks:
+  pre-build:
+    - "go generate ./..."
+    - "go mod tidy"
+  
+  post-build:
+    - "chmod +x ./bin/*"
+  
+  test:
+    - "go test -v -cover ./..."
+  
+  lint:
+    - "golangci-lint run ./..."
+  
+  release:
+    - "git tag v{{.version}}"
+    - "git push origin v{{.version}}"
