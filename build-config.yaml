@@ -1,4 +1,3 @@
-# build.yml
 project: "fleare-cli"
 version: "1.0.0"
 
@@ -7,27 +6,112 @@ build:
   default:
     os: "darwin"
     arch: "arm64"
-    output: "./bin/{{.project}}-{{.version}}-darwin-arm64"
-    ldflags: "-X main.version={{.version}}"
+    output: "./bin/{{.Project}}-{{.Version}}-darwin-arm64"
+    ldflags: "-X main.version={{.Version}}"
     tags: []
     cgo: false
 
   # Custom build targets
   targets:
+    # Linux targets
     linux-amd64:
       os: "linux"
       arch: "amd64"
-      output: "./bin/{{.project}}-linux-amd64"
-    
+      output: "./bin/{{.Project}}-{{.Version}}-linux-amd64"
+    linux-386:
+      os: "linux"
+      arch: "386"
+      output: "./bin/{{.Project}}-{{.Version}}-linux-386"
+    linux-arm:
+      os: "linux"
+      arch: "arm"
+      output: "./bin/{{.Project}}-{{.Version}}-linux-arm"
+    linux-arm64:
+      os: "linux"
+      arch: "arm64"
+      output: "./bin/{{.Project}}-{{.Version}}-linux-arm64"
+
+    # Windows targets
     windows-amd64:
       os: "windows"
       arch: "amd64"
-      output: "./bin/{{.project}}-windows-amd64.exe"
-    
+      output: "./bin/{{.Project}}-{{.Version}}-windows-amd64.exe"
+    windows-386:
+      os: "windows"
+      arch: "386"
+      output: "./bin/{{.Project}}-{{.Version}}-windows-386.exe"
+    windows-arm:
+      os: "windows"
+      arch: "arm"
+      output: "./bin/{{.Project}}-{{.Version}}-windows-arm.exe"
+    windows-arm64:
+      os: "windows"
+      arch: "arm64"
+      output: "./bin/{{.Project}}-{{.Version}}-windows-arm64.exe"
+
+    # macOS targets
+    darwin-amd64:
+      os: "darwin"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-darwin-amd64"
     darwin-arm64:
       os: "darwin"
       arch: "arm64"
-      output: "./bin/{{.project}}-darwin-arm64"
+      output: "./bin/{{.Project}}-{{.Version}}-darwin-arm64"
+
+    # FreeBSD targets
+    freebsd-386:
+      os: "freebsd"
+      arch: "386"
+      output: "./bin/{{.Project}}-{{.Version}}-freebsd-386"
+    freebsd-amd64:
+      os: "freebsd"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-freebsd-amd64"
+
+    # OpenBSD targets
+    openbsd-amd64:
+      os: "openbsd"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-openbsd-amd64"
+
+    # NetBSD targets
+    netbsd-amd64:
+      os: "netbsd"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-netbsd-amd64"
+
+    # DragonFly BSD targets
+    dragonfly-amd64:
+      os: "dragonfly"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-dragonfly-amd64"
+
+    # Solaris targets
+    solaris-amd64:
+      os: "solaris"
+      arch: "amd64"
+      output: "./bin/{{.Project}}-{{.Version}}-solaris-amd64"
+
+    # Build for all platforms
+    all:
+      platforms:
+        - linux-386
+        - linux-amd64
+        - linux-arm
+        - linux-arm64
+        - windows-386
+        - windows-amd64
+        - windows-arm
+        - windows-arm64
+        - darwin-amd64
+        - darwin-arm64
+        - freebsd-386
+        - freebsd-amd64
+        - openbsd-amd64
+        - netbsd-amd64
+        - dragonfly-amd64
+        - solaris-amd64
 
 dependencies:
   check:
@@ -38,16 +122,16 @@ tasks:
   pre-build:
     - "go generate ./..."
     - "go mod tidy"
-  
+
   post-build:
     - "chmod +x ./bin/*"
-  
+
   test:
     - "go test -v -cover ./..."
-  
+
   lint:
     - "golangci-lint run ./..."
-  
+
   release:
-    - "git tag v{{.version}}"
-    - "git push origin v{{.version}}"
+    - "git tag v{{.Version}}"
+    - "git push origin v{{.Version}}"
