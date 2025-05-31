@@ -11,8 +11,8 @@ import (
 	"github.com/TylerBrock/colorjson"
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"
-	"github.com/fleare/fleare-cli/comm"
 	"github.com/google/shlex"
+	"github.com/parashmaity/fleare-cli/comm"
 )
 
 func HandleCommand(conn *Connection) error {

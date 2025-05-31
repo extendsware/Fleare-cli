@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fleare/fleare-cli/handler"
+	"github.com/parashmaity/fleare-cli/handler"
 	"github.com/spf13/cobra"
 )
 

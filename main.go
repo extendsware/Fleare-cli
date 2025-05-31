@@ -1,6 +1,6 @@
 package main
 
-import "github.com/fleare/fleare-cli/cmd"
+import "github.com/parashmaity/fleare-cli/cmd"
 
 func main() {
 	cmd.Execute()

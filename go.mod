@@ -1,4 +1,4 @@
-module github.com/fleare/fleare-cli
+module github.com/parashmaity/fleare-cli
 
 go 1.23.0
 

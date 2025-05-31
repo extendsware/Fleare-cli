@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/fleare/fleare-cli/comm"
+	"github.com/parashmaity/fleare-cli/comm"
 
 	"google.golang.org/protobuf/proto"
 )
