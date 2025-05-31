@@ -1,4 +1,4 @@
-module fleare-cli
+module github.com/fleare/fleare-cli
 
 go 1.23.0
 

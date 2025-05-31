@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"fleare-cli/handler"
 	"fmt"
 	"os"
 
+	"github.com/fleare/fleare-cli/handler"
 	"github.com/spf13/cobra"
 )
 

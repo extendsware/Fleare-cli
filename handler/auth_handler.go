@@ -3,10 +3,11 @@ package handler
 import (
 	"bytes"
 	"encoding/binary"
-	"fleare-cli/comm"
 	"fmt"
 	"log"
 	"net"
+
+	"github.com/fleare/fleare-cli/comm"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -36,11 +37,6 @@ func ConnectWithPassword(host string, port int, username string, password string
 	if port <= 0 || port > 65535 {
 		return nil, fmt.Errorf("invalid port number: %d", port)
 	}
-	// if username == "" {
-	// 	return nil, fmt.Errorf("username cannot be empty")
-	// }
-	// Password can be empty in some cases, so we don't validate it
-
 	// Connect to the server
 	addr := net.JoinHostPort(host, fmt.Sprintf("%d", port))
 	conn, err := net.Dial("tcp", addr)

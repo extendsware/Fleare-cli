@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fleare-cli/comm"
 	"fmt"
 	"os"
 	"os/signal"
@@ -12,21 +11,18 @@ import (
 	"github.com/TylerBrock/colorjson"
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"
+	"github.com/fleare/fleare-cli/comm"
 	"github.com/google/shlex"
 )
 
 func HandleCommand(conn *Connection) error {
-	// rl, err := readline.New(conn.Conn.RemoteAddr().String() + "> ")
-	// if err != nil {
-	// 	return fmt.Errorf("failed to initialize readline: %w", err)
-	// }
 
 	// Create a channel to listen for system signals
 	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
 
 	home, _ := os.UserHomeDir()
-	// rl, err := readline.New(address + "> ")
+
 	historyFile := home + "/.fleare_history" // File to store command history
 	rl, err := readline.NewEx(&readline.Config{
 		Prompt:      conn.Conn.RemoteAddr().String() + "> ",
@@ -68,8 +64,6 @@ func HandleCommand(conn *Connection) error {
 			fmt.Printf("Error parsing input: %v\n", err)
 			continue
 		}
-
-		// fmt.Printf("Parsed args: %#v\n", args)
 
 		cmd := &comm.Command{
 			Command: args[0],
