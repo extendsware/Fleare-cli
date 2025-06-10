@@ -24,8 +24,9 @@ func HandleCommand(conn *Connection) error {
 	home, _ := os.UserHomeDir()
 
 	historyFile := home + "/.fleare_history" // File to store command history
+	underline := color.New(color.FgCyan, color.Underline).SprintFunc()
 	rl, err := readline.NewEx(&readline.Config{
-		Prompt:      conn.Conn.RemoteAddr().String() + "> ",
+		Prompt:      fmt.Sprint(underline(conn.Conn.RemoteAddr().String(), ">"), " "),
 		HistoryFile: historyFile, // Enable history
 	})
 	if err != nil {
