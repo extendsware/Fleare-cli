@@ -1,5 +1,5 @@
 project: "fleare-cli"
-version: "v0.1.0"
+version: "v1.0.1"
 zip: true
 
 build:
